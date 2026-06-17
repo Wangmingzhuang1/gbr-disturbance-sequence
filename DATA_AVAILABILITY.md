@@ -45,4 +45,4 @@ Manuscript drafts, cover letters, and journal-preparation notes are intentionall
 
 Repository link:
 
-- GitHub repository: https://github.com/Wangmingzhuang1/gbr-sequence-repro
+- GitHub repository: https://github.com/Wangmingzhuang1/gbr-disturbance-sequence
