@@ -12,6 +12,10 @@ import config
 from modeling_core import filter_downstream_analysis_sample
 
 from style_config import (
+    FS_ANNOT,
+    FS_LABEL,
+    FS_LEGEND,
+    FS_TICK,
     SEQ_LABELS,
     add_panel_label,
     apply_layout,
@@ -37,9 +41,9 @@ SIGNAL_LABELS = {
 X_LABELS = {
     'S_to_H': 'S->H',
     'S_to_S': 'S->S',
-    'Isolated_Storm': 'Isol.\nstorm',
+    'Isolated_Storm': 'Storm',
     'Concurrent': 'Concurrent',
-    'Isolated_Heatwave': 'Isol.\nheatwave',
+    'Isolated_Heatwave': 'Heat',
     'H_to_H': 'H->H',
     'H_to_S': 'H->S',
 }
@@ -86,8 +90,8 @@ def _panel_a(ax, df):
     ax.set_xlabel('')
     ax.set_ylabel('Final algae change')
     ax.set_xticks(range(len(order)))
-    ax.set_xticklabels([X_LABELS[s] for s in order], fontsize=6.9, rotation=0, ha='center')
-    ax.tick_params(axis='x', pad=2.2)
+    ax.set_xticklabels([X_LABELS[s] for s in order], fontsize=FS_TICK, rotation=0, ha='center')
+    ax.tick_params(axis='x', pad=3.0)
     clean_axis(ax)
 
 
@@ -119,7 +123,7 @@ def _panel_b(ax, df):
         f'$\\rho$ = {rho:.2f}',
         transform=ax.transAxes,
         ha='right', va='top',
-        fontsize=7.9,
+        fontsize=FS_ANNOT,
         fontweight='bold',
         bbox=dict(boxstyle='round,pad=0.28', facecolor='white', edgecolor='#dde3e8', alpha=0.92),
     )
@@ -178,7 +182,7 @@ def plot_fig5():
     apply_pub_style()
     df = _prep()
 
-    fig, _ = create_figure('main_landscape', override_height_mm=95)
+    fig, _ = create_figure('main_landscape', override_height_mm=100)
     gs = make_gridspec(fig, 1, 3, preset='main_landscape', wspace=0.35)
     ax_a = fig.add_subplot(gs[0, 0])
     ax_b = fig.add_subplot(gs[0, 1])
@@ -195,7 +199,7 @@ def plot_fig5():
     add_panel_label(ax_b, 'B', x=-0.10)
     add_panel_label(ax_c, 'C', x=-0.10)
 
-    apply_layout(fig, 'main_landscape', left=0.078, right=0.985, bottom=0.18, top=0.88)
+    apply_layout(fig, 'main_landscape', left=0.078, right=0.985, bottom=0.205, top=0.88)
     save_publication_figure(fig, OUTPUT)
     plt.close()
 

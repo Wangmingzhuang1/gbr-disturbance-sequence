@@ -16,6 +16,7 @@ from style_config import (
     apply_layout,
     apply_pub_style,
     clean_axis,
+    create_figure,
     save_publication_figure,
     set_square_panel,
 )
@@ -79,7 +80,9 @@ def _panel_b(ax, df):
 def plot_figS4():
     apply_pub_style()
     df = filter_downstream_analysis_sample(pd.read_csv(FEATURES))
-    fig, axes = plt.subplots(1, 2, figsize=(6.69, 3.78))
+    fig, _ = create_figure('supplement_landscape', override_height_mm=100)
+    axes = fig.subplots(1, 2)
+    fig.subplots_adjust(wspace=0.24)
     _panel_a(axes[0], df)
     _panel_b(axes[1], df)
     add_panel_label(axes[0], 'A')

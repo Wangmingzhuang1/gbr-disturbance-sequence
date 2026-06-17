@@ -16,6 +16,7 @@ from style_config import (
     apply_layout,
     apply_pub_style,
     clean_axis,
+    create_figure,
     ordered_sequences,
     save_publication_figure,
     seq_color,
@@ -28,7 +29,9 @@ def plot_figS5():
     apply_pub_style()
     df_margin = pd.read_csv(config.ADJUSTED_MEANS_PATH)
     df_labels = ordered_sequences(df_margin['seq_category'].values)
-    fig, axes = plt.subplots(1, 2, figsize=(6.69, 4.02), gridspec_kw={'width_ratios': [1.1, 0.9]})
+    fig, _ = create_figure('supplement_landscape', override_height_mm=100)
+    axes = fig.subplots(1, 2, gridspec_kw={'width_ratios': [1.1, 0.9]})
+    fig.subplots_adjust(wspace=0.24)
 
     ax1 = axes[0]
     for i, cat in enumerate(df_labels):

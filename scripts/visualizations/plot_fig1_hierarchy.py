@@ -11,6 +11,7 @@ import config
 
 from style_config import (
     FS_ANNOT,
+    FS_LEGEND,
     FS_TICK,
     SEQ_LABELS,
     add_panel_label,
@@ -120,7 +121,7 @@ def _panel_c(ax, balance):
     ax.set_yticks(y)
     ax.set_yticklabels([nice_labels.get(c, c.replace('_', ' ').title()) for c in plot_df['covariate']])
     ax.set_xlabel('Standardized mean difference')
-    ax.legend(loc='upper left', frameon=False, fontsize=8.0, handletextpad=0.2, labelspacing=0.3)
+    ax.legend(loc='upper left', frameon=False, fontsize=FS_LEGEND, handletextpad=0.2, labelspacing=0.3)
     ax.set_xlim(
         min(-0.85, plot_df[['smd_before', 'smd_after']].min().min() - 0.1),
         max(0.65, plot_df[['smd_before', 'smd_after']].max().max() + 0.1),

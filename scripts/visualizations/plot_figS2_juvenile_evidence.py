@@ -20,6 +20,7 @@ from style_config import (
     apply_layout,
     apply_pub_style,
     clean_axis,
+    create_figure,
     ordered_sequences,
     save_publication_figure,
     seq_color,
@@ -123,7 +124,9 @@ def plot_figS2():
         print('WARNING: No valid juvenile change data. S2 not generated.')
         return
 
-    fig, axes = plt.subplots(1, 2, figsize=(6.69, 3.92), gridspec_kw={'width_ratios': [1.0, 1.0]})
+    fig, _ = create_figure('supplement_landscape', override_height_mm=100)
+    axes = fig.subplots(1, 2, gridspec_kw={'width_ratios': [1.0, 1.0]})
+    fig.subplots_adjust(wspace=0.20)
     _panel_a(axes[0], df)
     _panel_b(axes[1], df)
     for idx, ax in enumerate(axes):

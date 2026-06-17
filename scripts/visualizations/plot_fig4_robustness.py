@@ -10,6 +10,9 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config
 
 from style_config import (
+    FS_ANNOT,
+    FS_LEGEND_TITLE,
+    FS_TICK,
     SEQ_LABELS,
     SEQ_ORDER,
     add_panel_label,
@@ -64,9 +67,9 @@ def _panel_a(ax, df_rob):
     ax.tick_params(which='minor', bottom=False, left=False)
 
     ax.set_xticks(range(len(KEY_CATS)))
-    ax.set_xticklabels([SHORT_LABELS[seq] for seq in KEY_CATS], fontsize=8.2)
+    ax.set_xticklabels([SHORT_LABELS[seq] for seq in KEY_CATS], fontsize=FS_TICK)
     ax.set_yticks(range(len(scenarios)))
-    ax.set_yticklabels([SCENARIO_LABELS[s] for s in scenarios], fontsize=8.1)
+    ax.set_yticklabels([SCENARIO_LABELS[s] for s in scenarios], fontsize=FS_TICK)
 
     for i in range(matrix.shape[0]):
         for j in range(matrix.shape[1]):
@@ -74,12 +77,12 @@ def _panel_a(ax, df_rob):
             if np.isnan(value):
                 continue
             color = 'white' if abs(value) > 0.35 else '#212529'
-            ax.text(j, i, f'{value:.2f}', ha='center', va='center', fontsize=7.9, color=color, fontweight='bold')
+            ax.text(j, i, f'{value:.2f}', ha='center', va='center', fontsize=FS_ANNOT, color=color, fontweight='bold')
 
     cbar = plt.colorbar(im, ax=ax, shrink=0.82, pad=0.035)
     cbar.outline.set_visible(False)
-    cbar.ax.set_title('Rel.\nloss', fontsize=8.3, pad=7, fontweight='bold')
-    cbar.ax.tick_params(labelsize=7.8)
+    cbar.ax.set_title('Rel.\nloss', fontsize=FS_LEGEND_TITLE, pad=7, fontweight='bold')
+    cbar.ax.tick_params(labelsize=FS_TICK)
 
     clean_axis(ax)
     ax.tick_params(axis='both', length=0)
@@ -114,7 +117,7 @@ def _panel_b(ax, df_rob):
             continue
         ax.plot([1, rank], [y_pos, y_pos], color='#d8dee4', linewidth=1.3, zorder=1)
         ax.scatter(rank, y_pos, s=130, color=seq_color(seq), edgecolor='white', linewidth=1.0, zorder=3)
-        ax.text(rank + 0.18, y_pos, f'#{int(rank)}', va='center', ha='left', fontsize=8.4, color='#4a4e54', fontweight='bold')
+        ax.text(rank + 0.18, y_pos, f'#{int(rank)}', va='center', ha='left', fontsize=FS_ANNOT, color='#4a4e54', fontweight='bold')
 
     ax.set_yticks(y)
     ax.set_yticklabels([SEQ_LABELS[seq] for seq in display_order])
@@ -128,7 +131,7 @@ def plot_fig4():
     apply_pub_style()
     df_rob = pd.read_csv(ROBUSTNESS) if os.path.exists(ROBUSTNESS) else None
 
-    fig, _ = create_figure('main_landscape', override_height_mm=102)
+    fig, _ = create_figure('main_landscape', override_height_mm=100)
     gs = make_gridspec(fig, 1, 2, preset='main_landscape', width_ratios=[1.22, 0.78], wspace=0.22)
     ax_a = fig.add_subplot(gs[0, 0])
     ax_b = fig.add_subplot(gs[0, 1])

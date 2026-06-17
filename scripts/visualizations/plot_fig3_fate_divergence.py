@@ -175,7 +175,7 @@ def _panel_b(ax, sub):
         frameon=False,
         loc='upper right',
         bbox_to_anchor=(0.995, 0.995),
-        fontsize=FS_LEGEND - 0.5,
+        fontsize=FS_LEGEND,
         ncol=1,
         handletextpad=0.4,
         labelspacing=0.25,
@@ -187,7 +187,7 @@ def plot_fig3():
     _, _, stratified, sub = _load()
 
     # Change to a cleaner 1x2 landscape layout
-    fig, _ = create_figure('main_landscape', override_height_mm=92)
+    fig, _ = create_figure('main_landscape', override_height_mm=100)
     gs = make_gridspec(
         fig,
         1,

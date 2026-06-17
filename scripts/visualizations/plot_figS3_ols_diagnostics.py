@@ -11,7 +11,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import config
 from modeling_core import build_base_formula, fit_cluster_robust_model, prepare_model_data
-from style_config import add_panel_label, apply_layout, apply_pub_style, clean_axis, save_publication_figure, set_square_panel
+from style_config import add_panel_label, apply_layout, apply_pub_style, clean_axis, create_figure, save_publication_figure, set_square_panel
 
 
 def _fit_main_model():
@@ -57,7 +57,9 @@ def _panel_qq(ax, result):
 def plot_figS3():
     apply_pub_style()
     result = _fit_main_model()
-    fig, axes = plt.subplots(1, 2, figsize=(6.69, 3.78))
+    fig, _ = create_figure('supplement_landscape', override_height_mm=100)
+    axes = fig.subplots(1, 2)
+    fig.subplots_adjust(wspace=0.24)
     _panel_residuals(axes[0], result)
     _panel_qq(axes[1], result)
     for idx, ax in enumerate(axes):

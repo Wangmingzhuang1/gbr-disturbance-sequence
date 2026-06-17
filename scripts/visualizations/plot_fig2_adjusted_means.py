@@ -162,7 +162,7 @@ def plot_fig2():
     gap = pd.read_csv(GAP)
     curves = pd.read_csv(CURVES)
 
-    fig, _ = create_figure('main_landscape', override_height_mm=102)
+    fig, _ = create_figure('main_landscape', override_height_mm=100)
     gs = make_gridspec(fig, 1, 3, preset='main_landscape', wspace=0.30)
 
     ax_a = fig.add_subplot(gs[0, 0])

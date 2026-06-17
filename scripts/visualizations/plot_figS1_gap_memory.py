@@ -16,6 +16,7 @@ from style_config import (
     apply_layout,
     apply_pub_style,
     clean_axis,
+    create_figure,
     save_publication_figure,
     seq_color,
     set_percent_axis,
@@ -36,7 +37,7 @@ def plot_memory_panel(ax, subset, seq, y_limits):
         curve = lowess(y, x, frac=0.75, return_sorted=True)
         ax.plot(curve[:, 0], curve[:, 1], color='#2f2f2f', linewidth=1.7)
     ax.axhline(0, color='#7b8085', linestyle='--', linewidth=0.9)
-    ax.set_xlabel('Gap between disturbances (years)')
+    ax.set_xlabel('Gap (years)')
     ax.set_ylabel('Relative coral loss')
     ax.set_xlim(0.85, 4.15)
     ax.set_ylim(*y_limits)
@@ -55,13 +56,15 @@ def plot_figS1():
     y_min = min(-1.05, min((sub['rel_loss'].min() for sub in subsets if not sub.empty), default=-0.6)) - 0.08
     y_max = max(0.95, max((sub['rel_loss'].max() for sub in subsets if not sub.empty), default=0.6)) + 0.08
 
-    fig, axes = plt.subplots(1, 3, figsize=(6.69, 3.74))
+    fig, _ = create_figure('supplement_landscape', override_height_mm=100)
+    axes = fig.subplots(1, 3)
+    fig.subplots_adjust(wspace=0.25)
     for idx, seq in enumerate(MEMORY_ORDER):
         plot_memory_panel(axes[idx], subsets[idx], seq, (y_min, y_max))
         add_panel_label(axes[idx], chr(ord('A') + idx))
         axes[idx].set_title(SEQ_LABELS[seq], fontsize=FS_LABEL, fontweight='bold', pad=6)
 
-    apply_layout(fig, 'supplement_landscape', left=0.08, right=0.985, top=0.90, bottom=0.19)
+    apply_layout(fig, 'supplement_landscape', left=0.08, right=0.985, top=0.90, bottom=0.23)
     fig.subplots_adjust(wspace=0.25)
     save_publication_figure(fig, OUTPUT)
     plt.close()
